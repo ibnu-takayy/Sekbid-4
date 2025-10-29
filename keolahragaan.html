@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sekbid 4 — Prestasi Akademik Seni & Olahraga</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#0e1113 0%,#defcf2 50%,#ffffff 100%);
+      color:#08343a;
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* NAVBAR */
+    .navbar{
+      position:fixed;top:0;left:0;right:0;z-index:999;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 28px;
+      background:rgba(200,255,250,0.5);
+      backdrop-filter:blur(6px);
+      transition:.3s;
+    }
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;color:#065c61;font-family:'Playfair Display',serif;}
+    .brand .logo{
+      background:linear-gradient(135deg,#33c1dc,#a1f0c4);
+      color:#fff;
+      width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+      font-family:'Playfair Display',serif;font-weight:800;
+      box-shadow:0 4px 14px rgba(0,100,100,0.2);
+    }
+    nav.nav{display:flex;gap:10px}
+    nav.nav button{
+      border:none;background:transparent;cursor:pointer;
+      font-weight:600;color:#065c61;
+      padding:8px 12px;border-radius:10px;
+      transition:.2s;
+    }
+    nav.nav button:hover{background:rgba(243, 247, 247, 0.05)}
+    nav.nav button.active{background:linear-gradient(90deg,#3bc9a8,#37a7d3);color:#fff}
+
+    .hamburger{display:none;background:transparent;border:none;font-size:22px;color:#065c61;cursor:pointer}
+    @media(max-width:880px){
+      nav.nav{display:none}
+      .hamburger{display:inline-block}
+      .mobile-menu{display:none;position:fixed;right:20px;top:68px;background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);padding:12px;border-radius:10px;box-shadow:0 8px 20px rgba(0,80,80,0.1)}
+      .mobile-menu.show{display:block}
+      .mobile-menu button{display:block;width:100%;text-align:left;padding:10px;border-radius:8px;margin:6px 0;background:transparent;border:none;font-weight:600}
+    }
+
+    /* SECTION BASE */
+    section{min-height:100vh;padding:120px 6% 80px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+    .container{max-width:1100px;margin:0 auto}
+    h1,h2{font-family:'Playfair Display',serif;color:#0e1111}
+    h1{font-size:2.5rem}
+    h2{font-size:1.8rem}
+    p.lead{max-width:850px;color:#0a0c0c}
+
+    /* BACKGROUND PER SECTION */
+    #home{background: url('a.jpg.jpeg');}
+    #tentang{background: url('b.jpg.jpeg')}
+    #anggota{background: url('c.jpg.jpeg')}
+    #dokumentasi{background: url('d.jpg.jpeg')}
+    
+
+    /* HOME */
+    .hero{display:grid;grid-template-columns:1fr 400px;gap:28px;align-items:center}
+    .card{background:rgba(246, 246, 247, 0.9);padding:26px;border-radius:14px;box-shadow:0 8px 20px rgba(14, 15, 15, 0.08)}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .btn{
+      padding:10px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer;transition:.2s;
+    }
+    .btn.primary{background:linear-gradient(90deg,#37a7d3,#6cddc1);color:#fdfbfb}
+    .btn.ghost{border:2px solid #37a7d3;background:transparent;color:#065c61}
+    .btn:hover{transform:translateY(-3px)}
+
+    .stats{display:flex;flex-direction:column;gap:10px}
+    .stat{background:rgba(0,150,150,0.05);padding:10px 14px;border-radius:10px;display:flex;justify-content:space-between}
+  
+    /* TENTANG */
+    .two-col{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .info-box{background:rgba(255,255,255,0.9);padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(0,80,80,0.08)}
+
+    /* ANGGOTA */
+    .cards{display:flex;flex-wrap:wrap;gap:18px;justify-content:center}
+    .member{width:220px;background:rgba(255,255,255,0.95);padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(0,80,80,0.06);text-align:center;transition:.25s}
+    .member:hover{transform:translateY(-8px);box-shadow:0 16px 28px rgba(0,80,80,0.12)}
+
+    /* GALERI */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
+    .gallery .item{position:relative;border-radius:10px;overflow:hidden;cursor:pointer}
+    .gallery .item img{width:100%;height:180px;object-fit:cover;transition:.35s}
+    .gallery .item:hover img{transform:scale(1.06)}
+    .caption{position:absolute;left:10px;bottom:10px;background:rgba(0,60,60,0.45);color:#fff;padding:6px 10px;border-radius:8px}
+
+    /* MODAL */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.72);z-index:1500;padding:20px}
+    .modal.show{display:flex}
+    .modal img{max-width:1200px;max-height:85vh;border-radius:12px}
+
+    /* SOSIAL */
+    .social-buttons{margin-top:18px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+    .social{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:28px;font-weight:700;color:#fff;transition:.2s}
+    .social.yt{background:#ff3b30}
+    .social.ig{background:linear-gradient(45deg,#a1c4fd,#c2e9fb)}
+    .social.tt{background:linear-gradient(45deg,#37a7d3,#3bc9a8)}
+    .social:hover{transform:translateY(-5px)}
+
+    #topBtn{position:fixed;right:22px;bottom:22px;background:linear-gradient(90deg,#37a7d3,#3bc9a8);color:#fff;border:none;padding:12px;border-radius:50%;display:none;cursor:pointer}
+
+    .reveal{opacity:0;transform:translateY(20px);transition:.6s}
+    .reveal.show{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1000px){.hero,.two-col{grid-template-columns:1fr}}
+    .brand{position:relative; display:flex; align-items:center; gap:10px; font-weight:700;color:#065c61;font-family:'Playfair Display',serif;}
+
+.logo-dropdown{
+  position:absolute;
+  top:60px; /* posisi dropdown di bawah logo */
+  left:0;
+  background:#fff;
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius:8px;
+  display:none;
+  flex-direction:column;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  z-index:1000;
+  min-width:180px;
+}
+.logo-dropdown a{
+  padding:10px 16px;
+  text-decoration:none;
+  color:#065c61;
+  font-weight:600;
+  transition:0.2s;
+}
+.logo-dropdown a:hover{
+  background:#37a7d3;
+  color:#fff;
+}
+
+  </style>
+</head>
+<body>
+  <header class="navbar" id="navbar">
+    <div class="brand">
+  <div class="logo" id="logoBtn">S4</div>
+  <div>
+    <div>Sekbid 4</div>
+    <small>Prestasi Akademik Seni & Olahraga</small>
+  </div>
+
+  <!-- Dropdown Logo -->
+  <div class="logo-dropdown" id="logoDropdown">
+    <a href="kelompok.html">Halaman Kelompok</a>
+  </div>
+</div>
+
+    <nav class="nav">
+  <button class="tab active" data-target="#home">Home</button>
+  <button class="tab" data-target="#tentang">Tentang</button>
+  <button class="tab" data-target="#anggota">Anggota</button>
+  <button class="tab" data-target="#dokumentasi">Dokumentasi</button>
+  
+</nav>
+
+    <button class="hamburger" id="hamburger">☰</button>
+    <div class="mobile-menu" id="mobileMenu">
+      <button data-target="#home"></button>
+      <button data-target="#tentang"></button>
+      <button data-target="#anggota"></button>
+      <button data-target="#dokumentasi"></button>
+      <button data-target="#kelompok.html"></button>
+    </div>
+  </header>
+  
+  <section id="home">
+    <div class="container hero">
+      <div class="card reveal">
+        <h1>Sekbid 4 — Prestasi Akademik Seni & Olahraga</h1>
+        <p class="lead">OSIS adalah singkatan dari organisasi siswa intra sekolah, yaiu organisasi kesiswaan yang ada di sekolah menengah (SMP & SMA/K) di indonesia.</p>
+        <div class="cta"></div>
+      
+        <div class="social-buttons reveal">
+          <a href="https://youtube.com/@smkn5bandungofficialchannel?si=K9hMhWGDMnD8sYwN" target="_blank" class="social yt"><i class="fab fa-youtube"></i> YouTube</a>
+          <a href="https://www.instagram.com/osissmkn5bdg?igsh=MWFpNmFqMDJzajRtbA==" target="_blank" class="social ig"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="https://www.tiktok.com/@osissmkn5bandung_?_t=ZS-90YXhsmuLf6&_r=1" target="_blank" class="social tt"><i class="fab fa-tiktok"></i> TikTok</a>
+        </div>
+      </div>
+  </section>
+
+  <section id="tentang">
+    <div class="container two-col">
+      <div class="info-box reveal">
+        <h2>Tentang Sekbid 4</h2>
+        <p>Sekbid 4 mengapresiasi tentang prestasi akademik siswa siswi mengupayakan siswa siswi menyalurkan prestasi bakat minat ke sekbid 4</p>
+      </div>
+      <div class="info-box reveal">
+        <h3>Program Utama</h3>
+        <ul>
+          <li>Proker jangka panjang:17 agustus</li>
+          <li>Proker jangka menengah:kotak akademik</li>
+          <li>proker jangka pendek:apresiasi day</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="anggota">
+    <div class="container">
+      <h2 class="reveal">Struktur Anggota Sekbid 4</h2>
+      <div class="cards">
+        <div class="member reveal"><img src="kelvin.jpeg"><h4>Kelvin Andrean Wijaya</h4><small>Ketua Sekbid</small></div>
+        <div class="member reveal"><img src="kanaya.jpg"><h4>Kanaya Putri Rahayu</h4><small>Wakil Ketua</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dokumentasi">
+    <div class="container">
+      <h2 class="reveal">Dokumentasi Kegiatan</h2>
+      <div class="gallery">
+        <div class="item" data-caption="17 agustus"><img src="agustus.jpeg"><div class="caption">17 agustus</div></div>
+        <div class="item" data-caption="kotak akademik"><img src="kotak.jpg"><div class="caption">Kotak akademik</div></div>
+        <div class="item" data-caption="Basket Friendly Match"><img src=""><div class="caption">Apresiasi day</div></div>
+      </div>
+    </div>
+  </section>
+
+ 
+
+  <div class="modal" id="imgModal" onclick="closeModal()"><img id="modalImg"></div>
+  <button id="topBtn">↑</button>
+
+  <script>
+    const tabs=document.querySelectorAll('.tab');
+    const sections=document.querySelectorAll('section');
+    const mobileMenu=document.getElementById('mobileMenu');
+    const hamburger=document.getElementById('hamburger');
+    const revealEls=document.querySelectorAll('.reveal');
+    const topBtn=document.getElementById('topBtn');
+    const modal=document.getElementById('imgModal');
+    const modalImg=document.getElementById('modalImg');
+
+    tabs.forEach(btn=>{
+      btn.onclick=()=>{
+        tabs.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelector(btn.dataset.target).scrollIntoView({behavior:'smooth'});
+        mobileMenu.classList.remove('show');
+      }
+    });
+    document.querySelectorAll('#mobileMenu button').forEach(b=>{
+      b.onclick=()=>{
+        document.querySelector(b.dataset.target).scrollIntoView({behavior:'smooth'});
+        mobileMenu.classList.remove('show');
+      }
+    });
+    hamburger.onclick=()=>mobileMenu.classList.toggle('show');
+
+    window.onscroll=()=>{
+      if(window.scrollY>200){topBtn.style.display="block"}else{topBtn.style.display="none"}
+      revealEls.forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add('show')});
+      let current="";
+      sections.forEach(sec=>{if(pageYOffset>=sec.offsetTop-200)current="#"+sec.id});
+      tabs.forEach(t=>{t.classList.remove('active');if(t.dataset.target===current)t.classList.add('active')});
+    };
+    topBtn.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+    document.querySelectorAll('.gallery .item img').forEach(img=>{
+      img.onclick=e=>{
+        modal.classList.add('show');
+        modalImg.src=e.target.src;
+      }
+    });
+    function closeModal(){modal.classList.remove('show');modalImg.src='';}
+    window.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+    const logoBtn = document.getElementById('logoBtn');
+const logoDropdown = document.getElementById('logoDropdown');
+
+logoBtn.onclick = () => {
+  logoDropdown.style.display = logoDropdown.style.display === 'flex' ? 'none' : 'flex';
+};
+
+// Klik di luar dropdown untuk menutup
+window.addEventListener('click', function(e){
+  if(!logoBtn.contains(e.target) && !logoDropdown.contains(e.target)){
+    logoDropdown.style.display = 'none';
+  }
+});
+
+  </script>
+</body>
+</html>
